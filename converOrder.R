@@ -1,6 +1,6 @@
-veh <- read.table("20220106_000000000001_raw_VEHICLE_ANSI.csv", sep=",",header = TRUE)
+ord <- read.table("20220106_000000000001_raw_ORDER2.csv", sep=",",header = TRUE)
 
-View(veh)
+View(ord)
 
 # rm(veh)
 
@@ -11,9 +11,9 @@ View(veh)
 # row_1 <- veh[c(1,2,3),]
 
 #특정열 제거
-veh_sub <- subset(veh, select = -c(CUSTOMER_CD,GROUP_CD))
+ord_sub <- subset(ord, select = -c(CUSTOMER_CD,GROUP_CD))
 
-View(veh_sub)
+View(ord_sub)
 
 install.packages("reshape")
 library(reshape)
@@ -63,6 +63,3 @@ library('jsonlite')
 exportJson <- toJSON(row_rename)
 
 write(exportJson, file = 'pdVehicle.json')
-
-
-
