@@ -2,7 +2,7 @@ veh <- read.table("20220106_000000000001_raw_VEHICLE_ANSI.csv", sep=",",header =
 
 View(veh)
 
-# rm(veh)
+rm(veh)
 
 # veh2 <- read.table("20220106_000000000001_raw_VEHICLE.csv", sep=",", head = TRUE, encoding = "UTF-8")
 
