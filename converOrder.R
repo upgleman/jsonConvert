@@ -6,11 +6,11 @@ library('jsonlite')
 
 ord <- read.table("20220106_000000000001_raw_ORDER.csv", sep=",", head = TRUE, fileEncoding = "UTF-8", encoding = "CP949")
 
-View(ord)
+# View(ord)
 
 # rm(ord)
 
-str(ord$ORDER_ID)
+# str(ord$ORDER_ID)
 
 # ord$ORDER_ID <- as.character(ord$ORDER_ID)
 
@@ -27,6 +27,7 @@ str(ord$ORDER_ID)
 ord$VEHICLE_OPTION <- as.character(ord$VEHICLE_OPTION)
 ord$VEHICLE_TYPE <- as.character(ord$VEHICLE_TYPE)
 ord$BOX_TYPE <- as.character(ord$BOX_TYPE)
+ord$BOX_SIZE <- as.character(ord$BOX_SIZE)
 ord$ORDER_TEMPERATURE <- as.character(ord$ORDER_TEMPERATURE)
 ord$ORDER_TYPE <- as.character(ord$ORDER_TYPE)
 ord$LOADING_TYPE <- as.character(ord$LOADING_TYPE)
@@ -34,12 +35,47 @@ ord$UNLOADING_TYPE <- as.character(ord$UNLOADING_TYPE)
 ord$ENABLE_PACKAGE <- as.character(ord$ENABLE_PACKAGE)
 ord$ENABLE_REV_NEGO <- as.character(ord$ENABLE_REV_NEGO)
 
+#좌표
+ord$P_X <- as.character(ord$P_X)
+ord$P_Y <- as.character(ord$P_Y)
+ord$D_X <- as.character(ord$D_X)
+ord$D_Y <- as.character(ord$D_Y)
+
+#지역번호
+ord$P_PNU <- as.character(ord$P_PNU)
+ord$D_PNU <- as.character(ord$D_PNU)
+
+#우편번호
+ord$P_ZIP_CODE <- as.character(ord$P_ZIP_CODE)
+ord$D_ZIP_CODE <- as.character(ord$D_ZIP_CODE)
+
+#일자 변수 전처리
+ord$P_ORDER_DATE <- as.character(ord$P_ORDER_DATE)
+ord$D_ORDER_DATE <- as.character(ord$D_ORDER_DATE)
+
+#시간변수 전처리
+ord$P_SLA_TIME <- as.character(ord$P_SLA_TIME)
+ord$D_SLA_TIME <- as.character(ord$D_SLA_TIME)
+
+ord$P_OPEN_TIME <- as.character(ord$P_OPEN_TIME)
+ord$P_CLOSE_TIME <- as.character(ord$P_CLOSE_TIME)
+ord$D_OPEN_TIME <- as.character(ord$D_OPEN_TIME)  
+ord$D_CLOSE_TIME <- as.character(ord$D_CLOSE_TIME)
+
+#디폴트값처리
+ord$P_OPEN_TIME <- ifelse(ord$P_OPEN_TIME %in% c("0", "0:0"), NA, ord$P_OPEN_TIME)
+ord$P_CLOSE_TIME <- ifelse(ord$P_CLOSE_TIME %in% c("0", "0:0"), NA, ord$P_CLOSE_TIME)
+ord$D_OPEN_TIME <- ifelse(ord$D_OPEN_TIME %in% c("0", "0:0"), NA, ord$D_OPEN_TIME)
+ord$D_CLOSE_TIME <- ifelse(ord$D_CLOSE_TIME %in% c("0", "0:0"), NA, ord$D_CLOSE_TIME)
+
+ord$P_SLA_TIME <- ifelse(ord$P_SLA_TIME %in% c("0", "0:0"), "00:00", ord$P_SLA_TIME)
+ord$D_SLA_TIME <- ifelse(ord$D_SLA_TIME %in% c("0", "0:0"), "00:00", ord$D_SLA_TIME)
 # str(ord$VEHICLE_OPTION)
 
 #특정열 제거
 ord_sub <- subset(ord, select = -c(ORDER_ID_S,CUSTOMER_CD,GROUP_CD))
 
-View(ord_sub)
+# View(ord_sub)
 
 
 
@@ -146,7 +182,7 @@ row_rename <-     rename(ord_sub,
                            "remark"="REMARK"))
 
 
-View(row_rename)
+# View(row_rename)
 
 
 
