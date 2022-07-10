@@ -21,7 +21,7 @@ library("reshape")
 # help(sqldf)
 
 # mst_users = dbGetQuery(con, "SELECT * FROM pnd_code;")
-
+# dbListTables(con)
 
 
 
@@ -37,8 +37,8 @@ query <- "SELECT * FROM pnd_code;"
 df <- sqldf(query)
 str(df)
 # View(df)
-write.csv(df, file = "sql_result.csv")
+write.csv(df, file = "sql_result.csv", fileEncoding = "UTF-8")
 
-sql_df <- read.csv("sql_result.csv", header = TRUE, stringsAsFactors = FALSE)
+sql_df <- read.csv("sql_result.csv", header = TRUE, stringsAsFactors = FALSE, fileEncoding = "UTF-8")
 sql_sub <- subset(sql_df, select = -c(X))
 View(sql_sub)
