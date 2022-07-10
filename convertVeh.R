@@ -1,4 +1,4 @@
-install.packages("reshape")
+# install.packages("reshape")
 library(reshape)
 library('jsonlite')
 
@@ -12,10 +12,12 @@ veh <- read.table("20220106_000000000001_raw_VEHICLE_refine.csv", sep=",", head 
 #OrderID 12자리 처리
 veh <- transform(veh,
                  VEHICLE_ID_S= sprintf("%010d",VEHICLE_ID),
+                 VEHICLE_OPTION_S= sprintf("%04d",VEHICLE_OPTION),
                  CURRENT_ORDER_ID_S= sprintf("%012d",CURRENT_ORDER_ID)
                  )
 # 변수 자릿수 고정
 veh$VEHICLE_ID<- veh$VEHICLE_ID_S
+veh$VEHICLE_OPTION <- veh$VEHICLE_OPTION_S
 veh$CURRENT_ORDER_ID<- ifelse(is.na(veh$CURRENT_ORDER_ID) == TRUE, NA ,veh$CURRENT_ORDER_ID_S)
 
 #문자형 변환
@@ -83,7 +85,7 @@ veh_rename <- rename( veh_sub,
               "VISIT_NODE_RATE" ="visitNodeRate",
               "DISTANCE_RATE" ="distanceRate",
               "TIME_RATE" ="timeRate",
-              "CURRENT_ORDER_ID"="curOrderID",
+              "CURRENT_ORDER_ID"="curOrderId",
               "CURRENT_LOC_X"="curLocX",
               "CURRENT_LOC_Y"="curLocY",
               "CURRENT_DES_X"="curDesX",
@@ -143,4 +145,4 @@ View(veh_rename)
 
 exportJson <- toJSON(veh_rename)
 
-write(exportJson, file = 'pdVehicle_full.json')
+write(exportJson, file = 'pdVehicle_full_ver2.json')

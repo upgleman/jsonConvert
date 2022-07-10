@@ -1,5 +1,5 @@
 # ord <- read.table("20220106_000000000001_raw_ORDER2.csv", sep=",",header = TRUE)
-install.packages("reshape")
+# install.packages("reshape")
 library(reshape)
 library(dplyr)
 library('jsonlite')
@@ -16,15 +16,19 @@ ord <- read.table("20220106_000000000001_raw_ORDER.csv", sep=",", head = TRUE, f
 
 #OrderID 12자리 처리
 ord <- transform(ord,
-                 ORDER_ID_S= sprintf("%012d",ORDER_ID))
+                 ORDER_ID_S= sprintf("%012d",ORDER_ID),
+                 VEHICLE_OPTION_S= sprintf("%04d",VEHICLE_OPTION))
 
 ord$ORDER_ID <-ord$ORDER_ID_S
+ord$VEHICLE_OPTION <- ord$VEHICLE_OPTION_S
 
-str(ord$ORDER_ID)
+# head(ord$VEHICLE_OPTION)
+
+# str(ord$ORDER_ID)
 # ord$ORDER_ID_S
 
 #문자열로 변환
-ord$VEHICLE_OPTION <- as.character(ord$VEHICLE_OPTION)
+# ord$VEHICLE_OPTION <- as.character(ord$VEHICLE_OPTION)
 ord$VEHICLE_TYPE <- as.character(ord$VEHICLE_TYPE)
 ord$BOX_TYPE <- as.character(ord$BOX_TYPE)
 ord$BOX_SIZE <- as.character(ord$BOX_SIZE)
@@ -182,7 +186,7 @@ row_rename <-     rename(ord_sub,
                            "remark"="REMARK"))
 
 
-# View(row_rename)
+View(row_rename)
 
 
 
